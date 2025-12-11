@@ -2,7 +2,10 @@
 const jwt = require("jsonwebtoken")
 
 const authVerify = (req,res, next) => {
-    const token = req.headers.authorization
+    const token = req.headers.authorization?.split(" ")[1];
+    if (!token) {
+    return res.status(401).json({ error: "Token not provided" });
+  }
     try{
       const decodedToken = jwt.verify(token, process.env.SECRET_KEY)
       req.user= {userId: decodedToken.id}
