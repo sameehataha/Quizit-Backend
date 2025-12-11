@@ -1,4 +1,7 @@
-require('dotenv').config();
+if (process.env.NODE_ENV !== "production") {
+  require("dotenv").config();
+}
+
 const express = require('express');
 const quizzes = require('./database/quizzes')
 const cors = require('cors')
@@ -13,7 +16,7 @@ const app = express()
 const PORT = process.env.PORT || 4000;
 
 
-const secretkey = process.env.SECRET_KEY || crypto.randomBytes(32).toString('hex')
+const secretkey = process.env.SECRET_KEY 
 console.log('Secret Key loaded:', secretkey)
 // console.log(secretkey)
 
